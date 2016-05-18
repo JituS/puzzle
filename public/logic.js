@@ -75,7 +75,7 @@ var down = function() {
 		for (var j = 0; j < tiles[i].length-1; j++) {
 			if(canGo(j, i, "down")){
 				directions.down(j, i, "down");
-				tiles[x][y] = "";
+				tiles[j][i] = "";
 			}
 		}
 	}
@@ -83,11 +83,11 @@ var down = function() {
 }
 
 var up = function() {
-	for (var i = tiles.length; i >= 0; i--) {
-		for (var j = tiles.length; j >= 0; j--) {
+	for (var i = tiles.length-1; i >= 0; i--) {
+		for (var j = tiles.length-1; j >= 0; j--) {
 			if(canGo(j, i, "up")){
 				directions.up(j, i);
-				tiles[x][y] = "";
+				tiles[j][i] = "";
 			}
 		}
 	}
@@ -100,7 +100,7 @@ var right = function() {
 		for (var j = 0; j < tiles[i].length-1; j++) {
 			if(canGo(i, j, "right")){
 				directions.right(i, j, "right");
-				tiles[x][y] = "";
+				tiles[i][j] = "";
 			}
 		}
 	}
@@ -108,11 +108,11 @@ var right = function() {
 }
 
 var left = function() {
-	for (var i = tiles.length; i >= 0; i--) {
-		for (var j = tiles.length; j >= 0; j--) {
+	for (var i = tiles.length-1; i >= 0; i--) {
+		for (var j = tiles.length-1; j >= 0; j--) {
 			if(canGo(i, j, "left")){
 				directions.left(i, j, "left");
-				tiles[x][y] = "";
+				tiles[i][j] = "";
 			}
 		}
 	}
