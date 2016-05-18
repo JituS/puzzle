@@ -1,0 +1,22 @@
+.tiles{
+	background: lightblue;
+	width: 100px;
+	height: 100px;
+	font-size: 20px;
+}
+
+.playArea{
+	margin-left: 30%;
+	margin-top: 5%;
+	text-align: center;
+}
+
+.navigate{
+	background: green;
+	float: left;
+}
+
+.keys{
+	display: inline;
+	margin-left: 10%;
+}

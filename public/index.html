@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>2048</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<table class="playArea">
+		<tr>
+			<td><input type="submit" value="" class="tiles" id="zero_zero"></input></td>
+			<td><input type="submit" value="" class="tiles" id="zero_one"></input></td>
+			<td><input type="submit" value="" class="tiles" id="zero_two"></input></td>
+			<td><input type="submit" value="" class="tiles" id="zero_three"></input></td>			
+		</tr>
+		<tr>
+			<td><input type="submit" value="" class="tiles" id="one_zero"></input></td>
+			<td><input type="submit" value="" class="tiles" id="one_one"></input></td>
+			<td><input type="submit" value="" class="tiles" id="one_two"></input></td>
+			<td><input type="submit" value="" class="tiles" id="one_three"></input></td>		
+		</tr>
+		<tr>
+			<td><input type="submit" value="" class="tiles" id="two_zero"></input></td>
+			<td><input type="submit" value="" class="tiles" id="two_one"></input></td>
+			<td><input type="submit" value="" class="tiles" id="two_two"></input></td>
+			<td><input type="submit" value="" class="tiles" id="two_three"></input></td>		
+		</tr>
+		<tr>
+			<td><input type="submit" value="" class="tiles" id="three_zero"></input></td>
+			<td><input type="submit" value="" class="tiles" id="three_one"></input></td>
+			<td><input type="submit" value="" class="tiles" id="three_two"></input></td>
+			<td><input type="submit" value="" class="tiles" id="three_three"></input></td>		
+		</tr>
+	</table>
+	<div class="keys">
+		<input type="submit" class="navigate" value="left" id="left" onclick="left()"></input>
+		<input type="submit" class="navigate" value="right" id="right" onclick="right()"></input>
+		<input type="submit" class="navigate" value="up" id="up" onclick="up()"></input>
+		<input type="submit" class="navigate" value="down" id="down" onclick="down()"></input>
+	</div>
+	<script type="text/javascript" src="logic.js"></script>
+</body>
+</html>
