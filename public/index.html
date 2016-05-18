@@ -5,6 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+<center><h1>Welcome to 2048 Game!!!</h1>
 	<table class="playArea">
 		<tr>
 			<td><input type="submit" value="" class="tiles" id="zero_zero"></input></td>
@@ -31,12 +32,28 @@
 			<td><input type="submit" value="" class="tiles" id="three_three"></input></td>		
 		</tr>
 	</table>
-	<div class="keys">
-		<input type="submit" class="navigate" value="left" id="left" onclick="left()"></input>
-		<input type="submit" class="navigate" value="right" id="right" onclick="right()"></input>
-		<input type="submit" class="navigate" value="up" id="up" onclick="up()"></input>
-		<input type="submit" class="navigate" value="down" id="down" onclick="down()"></input>
-	</div>
+		<div class="keys">
+			<table>
+				<tr>
+					<td>
+						<input type="submit" class="navigate" value="up" id="up" onclick="up()"></input>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="submit" class="navigate" value="left" id="left" onclick="left()"></input>
+						<input type="submit" class="navigate" value="right" id="right" onclick="right()"></input>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="submit" class="navigate" value="down" id="down" onclick="down()"></input>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</center>
+
 	<script type="text/javascript" src="logic.js"></script>
 </body>
 </html>

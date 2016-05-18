@@ -39,32 +39,44 @@ var initialize = function() {
 
 var canGo = function(x, y, direction){
 	if(direction == "down")
-		return ((x!=3) && (tiles[x+1][y]=="" || tiles[x+1][y]==tiles[x][y]))
+		return ((x!=3) && (tiles[x+1][y]=="" || tiles[x+1][y]==tiles[x][y]));
 	if(direction == "up")
-		return ((x!=0) && (tiles[x-1][y]=="" || tiles[x-1][y]==tiles[x][y]))
+		return ((x!=0) && (tiles[x-1][y]=="" || tiles[x-1][y]==tiles[x][y]));
 	if(direction == "right")
-		return ((y!=3) && (tiles[x][y+1]=="" || tiles[x][y+1]==tiles[x][y]))
+		return ((y!=3) && (tiles[x][y+1]=="" || tiles[x][y+1]==tiles[x][y]));
 	if(direction == "left")
-		return ((y!=0) && (tiles[x][y-1]=="" || tiles[x][y-1]==tiles[x][y]))
+		return ((y!=0) && (tiles[x][y-1]=="" || tiles[x][y-1]==tiles[x][y]));
 }
 
 var directions = {
 	"down" : function(x, y){
-		tiles[x+1][y] = (tiles[x+1][y]=="") ? tiles[x][y] : tiles[x+1][y]+tiles[x][y];
+		if(canGo(x, y, "down")){
+			tiles[x+1][y] = (tiles[x+1][y]=="") ? tiles[x][y] : tiles[x+1][y]+tiles[x][y];
+			tiles[x][y] = "";
+		}
 	},
-
 	"up" : function(x, y){
-		tiles[x-1][y] = (tiles[x-1][y]=="") ? tiles[x][y] : tiles[x-1][y]+tiles[x][y];
+		if(canGo(x, y, "up")){
+			tiles[x-1][y] = (tiles[x-1][y]=="") ? tiles[x][y] : tiles[x-1][y]+tiles[x][y];
+			tiles[x][y] = "";
+		}
+
 	},
 	"right" : function(x, y){
-		tiles[x][y+1] = (tiles[x][y+1]=="") ? tiles[x][y] : tiles[x][y+1]+tiles[x][y];
+		if(canGo(x, y, "right")){
+			tiles[x][y+1] = (tiles[x][y+1]=="") ? tiles[x][y] : tiles[x][y+1]+tiles[x][y];
+			tiles[x][y] = "";
+		}
 	},
 	"left" : function(x, y){
-		tiles[x][y-1] = (tiles[x][y-1]=="") ? tiles[x][y] : tiles[x][y-1]+tiles[x][y];
+		if(canGo(x, y, "left")){
+			tiles[x][y-1] = (tiles[x][y-1]=="") ? tiles[x][y] : tiles[x][y-1]+tiles[x][y];
+			tiles[x][y] = "";
+		}
 	}
 }
 
-var generateNumber = function(){
+var showNewStatus = function(){
 	var possition = getPossiotion();
 	tiles[possition[0]][possition[1]] = possibleNumbers[Math.floor(Math.random() * 2)];
 	fill();
@@ -73,50 +85,38 @@ var generateNumber = function(){
 var down = function() {
 	for (var i = 0; i < tiles.length; i++) {
 		for (var j = 0; j < tiles[i].length-1; j++) {
-			if(canGo(j, i, "down")){
-				directions.down(j, i, "down");
-				tiles[j][i] = "";
-			}
+			directions.down(j, i);
 		}
 	}
-	generateNumber();
+	showNewStatus();
 }
 
 var up = function() {
 	for (var i = tiles.length-1; i >= 0; i--) {
 		for (var j = tiles.length-1; j >= 0; j--) {
-			if(canGo(j, i, "up")){
-				directions.up(j, i);
-				tiles[j][i] = "";
-			}
+			directions.up(j, i);
 		}
 	}
-	generateNumber();
+	showNewStatus();
 }
 
 
 var right = function() {
 	for (var i = 0; i < tiles.length; i++) {
 		for (var j = 0; j < tiles[i].length-1; j++) {
-			if(canGo(i, j, "right")){
-				directions.right(i, j, "right");
-				tiles[i][j] = "";
-			}
+			directions.right(i, j);
 		}
 	}
-	generateNumber();
+	showNewStatus();
 }
 
 var left = function() {
 	for (var i = tiles.length-1; i >= 0; i--) {
 		for (var j = tiles.length-1; j >= 0; j--) {
-			if(canGo(i, j, "left")){
-				directions.left(i, j, "left");
-				tiles[i][j] = "";
-			}
+			directions.left(i, j);
 		}
 	}
-	generateNumber();
+	showNewStatus();
 }
 
 window.onload = initialize();

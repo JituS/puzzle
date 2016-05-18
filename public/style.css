@@ -6,7 +6,6 @@
 }
 
 .playArea{
-	margin-left: 30%;
 	margin-top: 5%;
 	text-align: center;
 }
@@ -16,7 +15,18 @@
 	float: left;
 }
 
+table{
+	border: 2px;
+	border-style: solid;
+	text-align: center;
+}
+
 .keys{
-	display: inline;
-	margin-left: 10%;
+	margin-top: 2px;
+}
+
+tr{
+	border-style: solid;
+	border: 2px;
+	text-align: center;
 }
