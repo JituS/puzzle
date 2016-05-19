@@ -5,7 +5,7 @@ var tiles = [
 	["","","",""]
 ]
 
-var colors = {2:"#F2F2F2",4:"#E3E3E3",8:"#D4D4D4",16:"#BDBDBD",32:"#A1A1A1",64:"#828282",128:"#6E6E6E",264:"#575757",512:"#3D3D3D",1028:"#030303"};
+var colors = {2:"#F3E5AB",4:"#FFDB58",8:"#F0DC82",16:"#FFD12A",32:"#E9D66B",64:"#F4C430",128:"#FFBF00",256:"#C2B280",512:"#DAA520",1024:"#B8860B",2048:"#918151"};
 
 var possibleNumbers = {
 	0 : 2,
@@ -40,7 +40,7 @@ var initialize = function() {
 	fill();
 };
 
-var canGo = function(x, y, direction){
+var canGoToThis = function(x, y, direction){
 	if(direction == "down")
 		return ((x!=3) && (tiles[x+1][y]=="" || tiles[x+1][y]==tiles[x][y]));
 	if(direction == "up")
@@ -53,7 +53,7 @@ var canGo = function(x, y, direction){
 
 var directions = {
 	"down" : function(x, y){
-		if(canGo(x, y, "down")){
+		if(canGoToThis(x , y, "down")){
 			tiles[x+1][y] = (tiles[x+1][y]=="") ? tiles[x][y] : tiles[x+1][y]+tiles[x][y];
 			tiles[x][y] = "";
 			for(var i = x; i > 0; i--){
@@ -63,7 +63,7 @@ var directions = {
 		}
 	},
 	"up" : function(x, y){
-		if(canGo(x, y, "up")){
+		if(canGoToThis(x, y, "up")){
 			tiles[x-1][y] = (tiles[x-1][y]=="") ? tiles[x][y] : tiles[x-1][y]+tiles[x][y];
 			tiles[x][y] = "";
 			for(var i = x; i < tiles.length - 1; i++){
@@ -74,7 +74,7 @@ var directions = {
 
 	},
 	"right" : function(x, y){
-		if(canGo(x, y, "right")){
+		if(canGoToThis(x, y, "right")){
 			tiles[x][y+1] = (tiles[x][y+1]=="") ? tiles[x][y] : tiles[x][y+1]+tiles[x][y];
 			tiles[x][y] = "";
 			for(var i = y; i > 0; i--){
@@ -84,7 +84,7 @@ var directions = {
 		}
 	},
 	"left" : function(x, y){
-		if(canGo(x, y, "left")){
+		if(canGoToThis(x, y, "left")){
 			tiles[x][y-1] = (tiles[x][y-1]=="") ? tiles[x][y] : tiles[x][y-1]+tiles[x][y];
 			tiles[x][y] = "";
 			for(var i = y; i < tiles.length - 1; i++){
@@ -143,6 +143,10 @@ var move = function(e){
 	if(e.keyCode == 40) down();	
 	if(e.keyCode == 39) right();	
 	if(e.keyCode == 37) left();	
+}
+
+var isDead = function() {
+
 }
 
 window.onload = initialize();
