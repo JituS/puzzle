@@ -5,17 +5,20 @@ var tiles = [
 	["","","",""]
 ]
 
+var colors = {2:"#F2F2F2",4:"#E3E3E3",8:"#D4D4D4",16:"#BDBDBD",32:"#A1A1A1",64:"#828282",128:"#6E6E6E",264:"#575757",512:"#3D3D3D",1028:"#030303"};
+
 var possibleNumbers = {
 	0 : 2,
 	1 : 4
 }
 
 var fill = function() {
-	var currentTiles = document.querySelectorAll("input");
+	var currentTiles = document.querySelectorAll("td");
 	var i = 0;
 	tiles.forEach(function(tileRow){
 		tileRow.forEach(function(tile){
-			currentTiles[i].setAttribute("value", tile);
+			currentTiles[i].innerHTML = tile;
+			currentTiles[i].setAttribute("style", "background-color:"+colors[tile]);
 			i++;
 		});
 	});
