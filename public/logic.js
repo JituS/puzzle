@@ -53,13 +53,13 @@ var goToNewLocation = function(newX, newY, prevX, prevY, isNotOnExtreme, go, tok
 		go(newX, newY, prevX, prevY, isNotOnExtreme);
 	}
 }
-
 var shiftFirstTile = function(newX, newY, prevX, prevY){
 	score += (tiles[newX][newY]=="") ? 0 : +(+(tiles[newX][newY])+(+tiles[prevX][prevY]));
 	tiles[newX][newY] = (tiles[newX][newY]=="") ? tiles[prevX][prevY] : tiles[newX][newY]+tiles[prevX][prevY];
 	console.log(score, tiles[newX][newY])
 	tiles[prevX][prevY] = "";
 }
+
 
 var directions = {
 	"down" : function(newX, newY, prevX, prevY, isNotOnExtreme){
