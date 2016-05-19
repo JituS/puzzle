@@ -3,7 +3,9 @@ var tiles = [
 	["","","",""],
 	["","","",""],
 	["","","",""]
-]
+];
+
+var score = 0;
 
 var colors = {2:"#F3E5AB",4:"#FFDB58",8:"#F0DC82",16:"#FFD12A",32:"#E9D66B",64:"#F4C430",128:"#FFBF00",256:"#C2B280",512:"#DAA520",1024:"#B8860B",2048:"#918151"};
 
@@ -12,7 +14,7 @@ var possibleNumbers = {
 	1 : 4
 }
 
-var fill = function() {
+var showInUI = function() {
 	var currentTiles = document.querySelectorAll("td");
 	var i = 0;
 	tiles.forEach(function(tileRow){
@@ -29,6 +31,7 @@ var getPossiotion = function() {
 		var x = Math.floor(Math.random() * 4);
 		var y = Math.floor(Math.random() * 4);
 		if(tiles[x][y] == "") return [x, y];
+		if(!hasSpace()) break;
 	}
 }
 
@@ -37,19 +40,24 @@ var initialize = function() {
 	var y = Math.floor(Math.random() * 4);
 	tiles[0][0] = 2;
 	tiles[y][x] = possibleNumbers[Math.floor(Math.random() * 2)];
-	fill();
+	showInUI();
 };
 
 var canGo = function(newX, newY, prevX, prevY, isNotOnExtreme){
 	return isNotOnExtreme && (tiles[newX][newY]=="" || tiles[newX][newY]==tiles[prevX][prevY])
 }
 
-var goToNewLocation = function(newX, newY, prevX, prevY, isNotOnExtreme, go){
-	if(canGo(newX, newY, prevX, prevY, isNotOnExtreme)) go(newX, newY, prevX, prevY, isNotOnExtreme);
+var goToNewLocation = function(newX, newY, prevX, prevY, isNotOnExtreme, go, token){
+	if(canGo(newX, newY, prevX, prevY, isNotOnExtreme)){
+		token.moved = true;
+		go(newX, newY, prevX, prevY, isNotOnExtreme);
+	}
 }
 
 var shiftFirstTile = function(newX, newY, prevX, prevY){
+	score += (tiles[newX][newY]=="") ? 0 : +(+(tiles[newX][newY])+(+tiles[prevX][prevY]));
 	tiles[newX][newY] = (tiles[newX][newY]=="") ? tiles[prevX][prevY] : tiles[newX][newY]+tiles[prevX][prevY];
+	console.log(score, tiles[newX][newY])
 	tiles[prevX][prevY] = "";
 }
 
@@ -87,40 +95,57 @@ var directions = {
 var showNewStatus = function(){
 	var possition = getPossiotion();
 	tiles[possition[0]][possition[1]] = possibleNumbers[Math.floor(Math.random() * 2)];
-	fill();
+	showInUI();
+}
+
+var gameOver = function() {
+	alert("game over");
+	window.location.href = window.location.href;
+}
+
+var hasSpace = function(){
+	for (var i = 0; i < tiles.length; i++) {
+		for (var j = 0; j < tiles[i].length; j++) {
+			if(tiles[i][j] == "") return true;
+		}
+	}
 }
 
 var down = function() {
-	for (var i = 0; i < tiles.length; i++) {
-		for (var j = 0; j < tiles[i].length-1; j++) {
-			goToNewLocation(j+1, i, j, i, j!=3, directions.down);
-		}
-	}
+	var token = {moved:false};
+	for (var i = 0; i < tiles.length; i++) 
+		for (var j = 0; j < tiles[i].length-1; j++) 
+			goToNewLocation(j+1, i, j, i, j!=3, directions.down, token);
+	if(!token.moved && !hasSpace()) gameOver();
 }
 
 var right = function() {
-	for (var i = 0; i < tiles.length; i++) {
-		for (var j = 0; j < tiles[i].length-1; j++) {
-			goToNewLocation(i, j + 1, i, j, j!=3, directions.right);
-		}
-	}
+	var token = {moved:false};
+	for (var i = 0; i < tiles.length; i++) 
+		for (var j = 0; j < tiles[i].length-1; j++) 
+			goToNewLocation(i, j + 1, i, j, j!=3, directions.right, token);
+	if(!token.moved && !hasSpace()) gameOver();
 }
 
 var up = function() {
-	for (var i = tiles.length-1; i >= 0; i--) {
-		for (var j = tiles.length-1; j >= 0; j--) {
-			goToNewLocation(j-1, i, j, i, j!=0, directions.up)
-		}
-	}
+	var token = {moved:false};
+	for (var i = tiles.length-1; i >= 0; i--) 
+		for (var j = tiles.length-1; j >= 0; j--) 
+			goToNewLocation(j-1, i, j, i, j!=0, directions.up, token);
+	if(!token.moved && !hasSpace()) gameOver();
 }
 
 
 var left = function() {
-	for (var i = tiles.length-1; i >= 0; i--) {
-		for (var j = tiles.length-1; j >= 0; j--) {
-			goToNewLocation(i, j - 1, i, j, j!=0, directions.left);
-		}
-	}
+	var token = {moved:false};
+	for (var i = tiles.length-1; i >= 0; i--) 
+		for (var j = tiles.length-1; j >= 0; j--) 
+			goToNewLocation(i, j - 1, i, j, j!=0, directions.left, token);
+	if(!token.moved && !hasSpace()) gameOver();
+}
+
+var updateScore = function(){
+	document.querySelector("#score").innerHTML = "Score : " + score;
 }
 
 var move = function(e){
@@ -128,6 +153,7 @@ var move = function(e){
 	if(e.keyCode == 40) down(), showNewStatus();	
 	if(e.keyCode == 39) right(), showNewStatus();
 	if(e.keyCode == 37) left(), showNewStatus();	
+	updateScore();
 }
 
 window.onload = initialize();
