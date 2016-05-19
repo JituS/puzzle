@@ -53,12 +53,20 @@ var directions = {
 		if(canGo(x, y, "down")){
 			tiles[x+1][y] = (tiles[x+1][y]=="") ? tiles[x][y] : tiles[x+1][y]+tiles[x][y];
 			tiles[x][y] = "";
+			for(var i = x; i > 0; i--){
+				tiles[i][y] = tiles[i-1][y];
+				tiles[i-1][y] = "";
+			}
 		}
 	},
 	"up" : function(x, y){
 		if(canGo(x, y, "up")){
 			tiles[x-1][y] = (tiles[x-1][y]=="") ? tiles[x][y] : tiles[x-1][y]+tiles[x][y];
 			tiles[x][y] = "";
+			for(var i = x; i < tiles.length - 1; i++){
+				tiles[i][y] = tiles[i+1][y];
+				tiles[i+1][y] = "";
+			}
 		}
 
 	},
@@ -66,12 +74,20 @@ var directions = {
 		if(canGo(x, y, "right")){
 			tiles[x][y+1] = (tiles[x][y+1]=="") ? tiles[x][y] : tiles[x][y+1]+tiles[x][y];
 			tiles[x][y] = "";
+			for(var i = y; i > 0; i--){
+				tiles[x][i] = tiles[x][i-1];
+				tiles[x][i-1] = "";
+			}
 		}
 	},
 	"left" : function(x, y){
 		if(canGo(x, y, "left")){
 			tiles[x][y-1] = (tiles[x][y-1]=="") ? tiles[x][y] : tiles[x][y-1]+tiles[x][y];
 			tiles[x][y] = "";
+			for(var i = y; i < tiles.length - 1; i++){
+				tiles[x][i] = tiles[x][i+1];
+				tiles[x][i+1] = "";
+			}
 		}
 	}
 }
@@ -91,7 +107,7 @@ var down = function() {
 	showNewStatus();
 }
 
-var up = function() {
+var up = function(e) {
 	for (var i = tiles.length-1; i >= 0; i--) {
 		for (var j = tiles.length-1; j >= 0; j--) {
 			directions.up(j, i);
@@ -117,6 +133,13 @@ var left = function() {
 		}
 	}
 	showNewStatus();
+}
+
+var move = function(e){
+	if(e.keyCode == 38) up();	
+	if(e.keyCode == 40) down();	
+	if(e.keyCode == 39) right();	
+	if(e.keyCode == 37) left();	
 }
 
 window.onload = initialize();
