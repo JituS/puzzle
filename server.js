@@ -11,7 +11,4 @@ var handlers = function(req, res){
 		res.end();
 	}
 }
-
-var server = http.createServer(app);
-
 http.createServer(handlers).listen(process.env.OPENSHIFT_NODEJS_PORT || 3000, process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1");
