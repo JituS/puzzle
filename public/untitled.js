@@ -40,46 +40,50 @@ var initialize = function() {
 	fill();
 };
 
-var canGo = function(newX, newY, prevX, prevY, isNotOnExtreme){
-	return isNotOnExtreme && (tiles[newX][newY]=="" || tiles[newX][newY]==tiles[prevX][prevY])
-}
-
-var goToNewLocation = function(newX, newY, prevX, prevY, isNotOnExtreme, go){
-	if(canGo(newX, newY, prevX, prevY, isNotOnExtreme)) go(newX, newY, prevX, prevY, isNotOnExtreme);
-}
-
-var shiftFirstTile = function(newX, newY, prevX, prevY, isNotOnExtreme){
-	tiles[newX][newY] = (tiles[newX][newY]=="") ? tiles[prevX][prevY] : tiles[newX][newY]+tiles[prevX][prevY];
-	tiles[prevX][prevY] = "";
+var canGoToThis = function(newX, newY, prevX, prevY, isNotOnExtreme){
+	return isNotOnExtreme && (tiles[newX][newY]=="" || tiles[newX][newY]==tiles[prevX][prevY]);
 }
 
 var directions = {
 	"down" : function(newX, newY, prevX, prevY, isNotOnExtreme){
-		shiftFirstTile(newX, newY, prevX, prevY, isNotOnExtreme);
-		for(var i = prevX; i > 0; i--){
-			tiles[i][prevY] = tiles[i-1][prevY];
-			tiles[i-1][prevY] = "";
+		if(canGoToThis(newX, newY, prevX, prevY, isNotOnExtreme)){
+			tiles[newX][newY] = (tiles[newX][newY]=="") ? tiles[prevX][prevY] : tiles[newX][newY]+tiles[prevX][prevY];
+			tiles[prevX][prevY] = "";
+			// for(var i = x; i > 0; i--){
+			// 	tiles[i][y] = tiles[i-1][y];
+			// 	tiles[i-1][y] = "";
+			// }
 		}
 	},
 	"up" : function(newX, newY, prevX, prevY, isNotOnExtreme){
-		shiftFirstTile(newX, newY, prevX, prevY, isNotOnExtreme);
-		for(var i = prevX; i < tiles.length - 1; i++){
-			tiles[i][prevY] = tiles[i+1][prevY];
-			tiles[i+1][prevY] = "";
+		if(canGoToThis(newX, newY, prevX, prevY, isNotOnExtreme)){
+			tiles[newX][newY] = (tiles[newX][newY]=="") ? tiles[prevX][prevY] : tiles[newX][newY]+tiles[prevX][prevY];
+			tiles[prevX][prevY] = "";
+			// for(var i = x; i < tiles.length - 1; i++){
+			// 	tiles[i][y] = tiles[i+1][y];
+			// 	tiles[i+1][y] = "";
+			// }
 		}
+
 	},
 	"right" : function(newX, newY, prevX, prevY, isNotOnExtreme){
-		shiftFirstTile(newX, newY, prevX, prevY, isNotOnExtreme);
-		for(var i = prevY; i > 0; i--){
-			tiles[prevX][i] = tiles[prevX][i-1];
-			tiles[prevX][i-1] = "";
+		if(canGoToThis(newX, newY, prevX, prevY, isNotOnExtreme)){
+			tiles[newX][newY] = (tiles[newX][newY]=="") ? tiles[prevX][prevY] : tiles[newX][newY]+tiles[prevX][prevY];
+			tiles[prevX][prevY] = "";
+			// for(var i = y; i > 0; i--){
+			// 	tiles[x][i] = tiles[x][i-1];
+			// 	tiles[x][i-1] = "";
+			// }
 		}
 	},
 	"left" : function(newX, newY, prevX, prevY, isNotOnExtreme){
-		shiftFirstTile(newX, newY, prevX, prevY, isNotOnExtreme);
-		for(var i = prevY; i < tiles.length - 1; i++){
-			tiles[prevX][i] = tiles[prevX][i+1];
-			tiles[prevX][i+1] = "";
+		if(canGoToThis(newX, newY, prevX, prevY, isNotOnExtreme)){
+			tiles[newX][newY] = (tiles[newX][newY]=="") ? tiles[prevX][prevY] : tiles[newX][newY]+tiles[prevX][prevY];
+			tiles[prevX][prevY] = "";
+			// for(var i = y; i < tiles.length - 1; i++){
+			// 	tiles[x][i] = tiles[x][i+1];
+			// 	tiles[x][i+1] = "";
+			// }
 		}
 	}
 }
@@ -93,7 +97,9 @@ var showNewStatus = function(){
 var down = function() {
 	for (var i = 0; i < tiles.length; i++) {
 		for (var j = 0; j < tiles[i].length-1; j++) {
-			goToNewLocation(j+1, i, j, i, j!=3, directions.down);
+			// directions.down(j, i);
+			directions.down(j+1, i, j, i, j!=3);
+
 		}
 	}
 }
@@ -101,7 +107,8 @@ var down = function() {
 var right = function() {
 	for (var i = 0; i < tiles.length; i++) {
 		for (var j = 0; j < tiles[i].length-1; j++) {
-			goToNewLocation(i, j + 1, i, j, j!=3, directions.right);
+			// directions.right(i, j);
+			directions.right(i, j + 1, i, j, j!=3);
 		}
 	}
 }
@@ -109,7 +116,8 @@ var right = function() {
 var up = function() {
 	for (var i = tiles.length-1; i >= 0; i--) {
 		for (var j = tiles.length-1; j >= 0; j--) {
-			goToNewLocation(j-1, i, j, i, j!=0, directions.up)
+			// directions.down(j, i);
+			directions.up(j-1, i, j, i, j!=0)
 		}
 	}
 }
@@ -118,7 +126,8 @@ var up = function() {
 var left = function() {
 	for (var i = tiles.length-1; i >= 0; i--) {
 		for (var j = tiles.length-1; j >= 0; j--) {
-			goToNewLocation(i, j - 1, i, j, j!=0, directions.left);
+			// directions.right(i, j);
+			directions.left(i, j - 1, i, j, j!=0);
 		}
 	}
 }
@@ -130,8 +139,11 @@ var move = function(e){
 	if(e.keyCode == 37) left(), showNewStatus();	
 }
 
-window.onload = initialize();
+var isDead = function() {
 
+}
+
+window.onload = initialize();
 
 
 
