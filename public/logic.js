@@ -145,7 +145,7 @@ var left = function() {
 }
 
 var updateScore = function(){
-	document.querySelector("#score").innerHTML = "Score : " + score;
+	document.querySelector("#score").innerHTML = "Score : <b>" + score + "</b>";
 }
 
 var move = function(e){

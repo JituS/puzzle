@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-	"start":"node server.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -16,8 +16,11 @@
     "url": "https://github.com/JituS/puzzle/issues"
   },
   "homepage": "https://github.com/JituS/puzzle#readme",
-    "engines": {
-   "node": ">= 0.6.0",
-   "npm": ">= 1.0.0"
+  "engines": {
+    "node": ">= 0.6.0",
+    "npm": ">= 1.0.0"
+  },
+  "dependencies": {
+    "express": "^4.13.4"
   }
 }
