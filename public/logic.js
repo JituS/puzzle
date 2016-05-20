@@ -113,9 +113,11 @@ var hasSpace = function(){
 
 var down = function() {
 	var token = {moved:false};
-	for (var i = 0; i < tiles.length; i++) 
-		for (var j = 0; j < tiles[i].length-1; j++) 
+	for (var i = 0; i < tiles.length; i++) {
+		for (var j = 0; j < tiles[i].length-1; j++) {
 			goToNewLocation(j+1, i, j, i, j!=3, directions.down, token);
+		}
+	}
 	if(!token.moved && !hasSpace()) gameOver();
 }
 
@@ -149,10 +151,11 @@ var updateScore = function(){
 }
 
 var move = function(e){
-	if(e.keyCode == 38) up(), showNewStatus();	
-	if(e.keyCode == 40) down(), showNewStatus();	
-	if(e.keyCode == 39) right(), showNewStatus();
-	if(e.keyCode == 37) left(), showNewStatus();	
+	if(e.keyCode == 38) up();
+	if(e.keyCode == 40) down();
+	if(e.keyCode == 39) right();
+	if(e.keyCode == 37) left();
+	showNewStatus();
 	updateScore();
 }
 
