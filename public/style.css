@@ -17,7 +17,7 @@
 td.updown{
 	border-style: none;
 }
-/*
+
 #bottom{
 	background-color: lightgrey;
 	border-color: grey;
@@ -29,7 +29,7 @@ td.updown{
 	-moz-box-shadow: 0px 10px 12px rgba(23, 69, 88, .5);
 	background: -webkit-gradient(linear, left top, left bottom, 
 	color-stop(0%, yellow), color-stop(15%, orange), color-stop(100%, #A7AA77)); 
-}*/
+}
 
 .playArea{
 	border: 2px;
@@ -43,6 +43,11 @@ td.updown{
 	float: left;
 }
 
+img{
+	width: 50px;
+	height: 50px;
+}
+
 td{
 	font-weight: bold;
 	font-size: 20px;
@@ -51,14 +56,13 @@ td{
 	text-align: center;
 	border-style: solid;
 	border-radius: 3px;
-	border-color: #8e4600;
+	border-color: darkorange;
 }
 
 .navigate{
 	width: 60px;
 	height: 55px;
 	background-color: lightgrey;
-	margin: 2px;
 	text-align: center;
 	font-size: 35px;
 	font-weight: bold;
@@ -69,7 +73,6 @@ td{
 	width: 60px;
 	height: 55px;
 	background-color: darkgrey;
-	margin: 2px;
 	text-align: center;
 	font-size: 35px;
 	font-weight: bold;
