@@ -51,40 +51,39 @@ var canGo = function(newX, newY, prevX, prevY, isNotOnExtreme){
 var goToNewLocation = function(newX, newY, prevX, prevY, isNotOnExtreme, go, token){
 	if(canGo(newX, newY, prevX, prevY, isNotOnExtreme)){
 		token.moved = true;
-		go(newX, newY, prevX, prevY, isNotOnExtreme);
+		go(newX, newY, prevX, prevY);
 	}
 }
 var shiftFirstTile = function(newX, newY, prevX, prevY){
 	score += (tiles[newX][newY]=="") ? 0 : +(+(tiles[newX][newY])+(+tiles[prevX][prevY]));
 	tiles[newX][newY] = (tiles[newX][newY]=="") ? tiles[prevX][prevY] : tiles[newX][newY]+tiles[prevX][prevY];
-	console.log(score, tiles[newX][newY])
 	tiles[prevX][prevY] = "";
 }
 
 
 var directions = {
-	"down" : function(newX, newY, prevX, prevY, isNotOnExtreme){
+	"down" : function(newX, newY, prevX, prevY){
 		shiftFirstTile(newX, newY, prevX, prevY);
 		for(var i = prevX; i > 0; i--){
 			tiles[i][prevY] = tiles[i-1][prevY];
 			tiles[i-1][prevY] = "";
 		}
 	},
-	"up" : function(newX, newY, prevX, prevY, isNotOnExtreme){
+	"up" : function(newX, newY, prevX, prevY){
 		shiftFirstTile(newX, newY, prevX, prevY);
 		for(var i = prevX; i < tiles.length - 1; i++){
 			tiles[i][prevY] = tiles[i+1][prevY];
 			tiles[i+1][prevY] = "";
 		}
 	},
-	"right" : function(newX, newY, prevX, prevY, isNotOnExtreme){
+	"right" : function(newX, newY, prevX, prevY){
 		shiftFirstTile(newX, newY, prevX, prevY);
 		for(var i = prevY; i > 0; i--){
 			tiles[prevX][i] = tiles[prevX][i-1];
 			tiles[prevX][i-1] = "";
 		}
 	},
-	"left" : function(newX, newY, prevX, prevY, isNotOnExtreme){
+	"left" : function(newX, newY, prevX, prevY){
 		shiftFirstTile(newX, newY, prevX, prevY);
 		for(var i = prevY; i < tiles.length - 1; i++){
 			tiles[prevX][i] = tiles[prevX][i+1];
