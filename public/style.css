@@ -10,8 +10,16 @@
 	height: 1px;
 }
 
+#left{
+	margin-right: 50px;
+}	
+
+#right{
+	margin-left: 50px;
+}	
+
 #up, #down{
-	margin-left: 30%;
+	margin-left: 36%;
 }
 
 td.updown{

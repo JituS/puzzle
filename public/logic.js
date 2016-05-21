@@ -36,7 +36,7 @@ var getPossiotion = function() {
 }
 
 var initialize = function() {
-	alert("use keyboard arrows if you are playing from computer, or use given navigation keys if you are in phone.");
+	// alert("use keyboard arrows if you are playing from computer, or use given navigation keys if you are in phone.");
 	var x = Math.floor(Math.random() * 4);
 	var y = Math.floor(Math.random() * 4);
 	tiles[0][0] = 2;
