@@ -119,6 +119,7 @@ var down = function() {
 		}
 	}
 	if(!token.moved && !hasSpace()) gameOver();
+	showNewStatus();
 }
 
 var right = function() {
@@ -127,6 +128,7 @@ var right = function() {
 		for (var j = 0; j < tiles[i].length-1; j++) 
 			goToNewLocation(i, j + 1, i, j, j!=3, directions.right, token);
 	if(!token.moved && !hasSpace()) gameOver();
+	showNewStatus();
 }
 
 var up = function() {
@@ -135,6 +137,7 @@ var up = function() {
 		for (var j = tiles.length-1; j >= 0; j--) 
 			goToNewLocation(j-1, i, j, i, j!=0, directions.up, token);
 	if(!token.moved && !hasSpace()) gameOver();
+	showNewStatus();
 }
 
 
@@ -144,6 +147,7 @@ var left = function() {
 		for (var j = tiles.length-1; j >= 0; j--) 
 			goToNewLocation(i, j - 1, i, j, j!=0, directions.left, token);
 	if(!token.moved && !hasSpace()) gameOver();
+	showNewStatus();
 }
 
 var updateScore = function(){
@@ -155,7 +159,6 @@ var move = function(e){
 	if(e.keyCode == 40) down();
 	if(e.keyCode == 39) right();
 	if(e.keyCode == 37) left();
-	showNewStatus();
 	updateScore();
 }
 
