@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>2048</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body onkeyup="move(event)" bgcolor="#E5E4E2">
+<center><h2>Welcome to 2048 Game!!!</h2>
+<hr id="top">
+<p id="score">Score : <b>0</b></p>
+	<table class="playArea">
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>			
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>		
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>		
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>		
+		</tr>
+		</table>
+		<br><br>
+		<table id="keys">
+			<tr><td class="updown" colspan="2"><div onclick="up(), showNewStatus(), updateScore()" class = "navigate" id="up"><img src="images/up.ico"></div></td></tr>
+			<tr><td class="updown"><div onclick="left(), showNewStatus(), updateScore()" class = "navigate" id = "left"><img src="images/left.ico"></div></td>
+			<td class="updown"><div onclick="right(), showNewStatus(), updateScore()" class = "navigate" id = "right"><img src="images/right.ico"></div></td>
+			</tr>
+			<tr><td class="updown" colspan="2"><div onclick="down(), showNewStatus(), updateScore()" class = "navigate" id = "down"><img src="images/down.ico"></div></td></tr>
+		</table>
+	<br><br><br><br>
+	<!-- <div id = "bottom"></div>  -->
+	</center>
+	<script type="text/javascript" src="logic.js"></script>
+</body>
+</html>
